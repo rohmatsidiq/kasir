@@ -41,7 +41,7 @@ export const login = async (req, res) => {
 
         // jika username tidak ditemukan
         if (user.length == 0) {
-            return res.status(400).json({
+            return res.status(200).json({
                 success: false,
                 message: "User tidak ditemukan",
             });
@@ -55,7 +55,7 @@ export const login = async (req, res) => {
 
         // jika password salah
         if (!validate) {
-            return res.status(400).json({
+            return res.status(200).json({
                 success: false,
                 message: "Password salah",
             });
@@ -66,7 +66,6 @@ export const login = async (req, res) => {
             {
                 id: user[0].id,
                 username: user[0].username,
-                type: user[0].type,
             },
             "rahasia"
         );
@@ -74,6 +73,7 @@ export const login = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "Berhasil login",
+            user: user[0],
             token: token,
         });
     } catch (error) {
